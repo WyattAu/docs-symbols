@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "0 6 * * 1"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    uses: WyattAu/engineering-standards/.github/workflows/rust-kit.yml@024f2b5fc013a77316077cea58c9820d1bbfdd28 # main @ 2026-10-03
+    with:
+      tier: b            # ≥80% line coverage; extraction, invariance, anchor, and error suites
+      all-features: true
+      loom: false        # n/a — no lock-free shared-memory primitives (recorded)
+      wasm: false        # n/a — extraction is a build-time concern; grammar C needs a libc sysroot absent on wasm32-unknown-unknown (recorded)
+      miri: false        # n/a — no unsafe blocks, no FFI (tree-sitter's own C is exercised by the tests as-is)

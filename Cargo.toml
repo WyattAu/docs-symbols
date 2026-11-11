@@ -1,0 +1,45 @@
+[package]
+name = "docs-symbols"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.85"
+authors = ["Wyatt Au <wyatt_au@protonmail.com>"]
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/WyattAu/docs-symbols"
+homepage = "https://github.com/WyattAu/docs-symbols"
+documentation = "https://docs.rs/docs-symbols"
+description = "Symbol-anchored source extraction for docs sites: resolve a symbol path through a tree-sitter AST and return its exact span with a position-independent anchor ID. docs-core extension program (SPEC.md REQ-S)"
+readme = "README.md"
+keywords = ["tree-sitter", "documentation", "symbols", "include", "transclusion"]
+categories = ["development-tools", "text-processing", "parser-implementations"]
+exclude = [".github/", "supply-chain/"]
+
+# Layer model: docs/layers.md in WyattAu/engineering-standards.
+# L0 - leaf: zero estate-internal dependencies; the external floor is
+# tree-sitter plus one grammar (Rust, per the 0.1 scope).
+[package.metadata.layers]
+tier = "L0"
+
+[dependencies]
+thiserror = "2"
+tree-sitter = "0.26.13"
+tree-sitter-rust = "0.24.2"
+
+[lints.rust]
+missing_docs = "deny"
+unsafe_code = "deny"
+
+# Content discipline (mirrors the estate's decoder pattern): source text is
+# repository content, still untrusted input. Resolution is total: malformed
+# sources and unresolvable symbol paths produce typed errors, never panics.
+[lints.clippy]
+unwrap_used = "deny"
+expect_used = "deny"
+panic = "deny"
+indexing_slicing = "deny"
+undocumented_unsafe_blocks = "deny"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = true
