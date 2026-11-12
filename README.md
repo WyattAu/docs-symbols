@@ -43,6 +43,15 @@ The C grammar builds for native targets; the crate is native-only by
 design because extraction is a build-time concern (the browser client
 never extracts symbols). Each absence is a later increment, not silent.
 
+## Where the truth lives
+
+| Concern | Truth | Path |
+|---|---|---|
+| Symbol resolution + spans | source of record | `src/resolve.rs`, `src/span.rs` |
+| Typed failures | source of record | `src/error.rs` |
+| REQ-S anchors (symbol-anchored includes) | SPEC | `docs-core/SPEC.md` |
+| Layer declaration + tree-sitter pin (0.25: one native lib per graph) | manifest metadata | `Cargo.toml` |
+
 ## Layer
 
 L0 - leaf. Zero estate-internal dependencies; the external floor is
