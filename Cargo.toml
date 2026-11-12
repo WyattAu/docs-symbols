@@ -1,6 +1,6 @@
 [package]
 name = "docs-symbols"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 rust-version = "1.85"
 authors = ["Wyatt Au <wyatt_au@protonmail.com>"]
@@ -22,8 +22,8 @@ tier = "L0"
 
 [dependencies]
 thiserror = "2"
-tree-sitter = "0.26.13"
-tree-sitter-rust = "0.24.2"
+tree-sitter = "0.25"
+tree-sitter-rust = "0.24"
 
 [lints.rust]
 missing_docs = "deny"

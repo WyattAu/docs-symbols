@@ -18,3 +18,14 @@ All notable changes to this project are documented in this file.
 - Tests: extraction at three depths, line-shift invariance (REQ-S1
   oracle), anchor stability/divergence (REQ-S3 oracle), typed-failure
   negative tests (REQ-S2 oracle), parse rejection.
+
+## [0.1.1] - 2026-11-12
+
+### Changed
+
+- `tree-sitter` moved to the 0.25 line (from 0.26) so docs-symbols shares
+  one tree-sitter native library with `docs-pipeline` 0.1.4's
+  `tree-sitter-highlight` 0.25: two majors of a `links =` crate cannot
+  coexist in one graph, which the estate-integration `docs_program`
+  suite caught on its first run. No code changes; the 0.25 API covers
+  everything this crate uses.
